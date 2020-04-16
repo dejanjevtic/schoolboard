@@ -11,12 +11,12 @@
 
 include 'class_student.php';
 include 'DB_connect.php';
-
+include 'class_CSM.php';
 
 $url = $_SERVER['REQUEST_URI'];
 
 $parts = parse_url($url);
-$path_parts= explode('/', $parts['path']);
+$path_parts= explode('/', $parts['path']); 
 $id = $path_parts[4];
 
 $sql = "SELECT * FROM student WHERE id = $id";
@@ -35,9 +35,12 @@ if ($result->num_rows > 0) {
 }
 
 
-$student = new Student($name,$grade);
-echo $student->averageGrade();
-
+//$student = new Student($name,$grade);
+//echo $student->averageGrade();
+$csm = new CSM($name,$grade);
+echo $average = $csm->averageGrade();
+echo '<br>';
+echo $csm->result($average);
 
 ?>
 

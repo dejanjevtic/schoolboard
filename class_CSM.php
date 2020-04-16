@@ -2,16 +2,29 @@
  
  class CSM extends Student{
 	 
-	private $result; 
+	protected $result; 
 	 
  	public function __construct ($name, $grade) {
-		parent::__construct($name, $grade);
-		
+		parent::__construct($name, $grade);		
 	}
 	
-	function pass(){
-				
+	function averageGrade(){
+		$ex=explode(",", $this->grade);
+		$sum=0;$i=0;
+		foreach($ex as $part){
+			$sum+=$part;$i++;
+		}
+		$sum=$sum/$i;
+		return $sum;
+		
 	}	
+	
+	function result($average){
+		if($average>=7) {$result = 1;}
+		else {$result = 0;}
+			
+		return $result;
+	}
  }
 
 
