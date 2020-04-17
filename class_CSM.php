@@ -3,9 +3,12 @@
  class CSM extends Student{
 	 
 	protected $result; 
-	 
+	protected $myObj;
+	
  	public function __construct ($name, $grade) {
-		parent::__construct($name, $grade);		
+		parent::__construct($name, $grade);	
+			$this->name = $name;
+			$this->grade = $grade;
 	}
 	
 	function averageGrade(){
@@ -20,10 +23,17 @@
 	}	
 	
 	function result($average){
-		if($average>=7) {$result = 1;}
-		else {$result = 0;}
-			
-		return $result;
+		if($average >= 7) {$result = true;}
+		else {$result = false;}
+		$myObj=new stdClass();
+		$myObj->name = $this->name;
+		$myObj->grade = $this->grade;		
+		$myObj->average = $average;
+		$myObj->pass = $result;
+
+		$res = json_encode($myObj);
+
+		return $res;
 	}
  }
 
