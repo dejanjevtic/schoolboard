@@ -12,6 +12,7 @@
 include 'class_student.php';
 include 'DB_connect.php';
 include 'class_CSM.php';
+include 'class_CSMB.php';
 
 $url = $_SERVER['REQUEST_URI'];
 
@@ -26,8 +27,10 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
 		
+		$id = $row["id"];
 		$name = $row["name"];
 		$grade = $row["grade"];
+		$board = $row["board"];
         echo "id: " . $row["id"]. " - Name: " . $row["name"]. "  - Grades: " . $row["grade"]." - Email: " . $row["email"]. "<br>";
     }
 } else {
@@ -37,10 +40,14 @@ if ($result->num_rows > 0) {
 
 //$student = new Student($name,$grade);
 //echo $student->averageGrade();
-$csm = new CSM($name,$grade);
-echo $average = $csm->averageGrade();
+
+$csm =($board === "CSM") ?  new CSM($id,$name,$grade) :  new CSMB($id,$name,$grade);
+$average = $csm->averageGrade();
+$result = $csm->result($average);
+
+
 echo '<br>';
-echo $csm->result($average);
+echo $result;
 
 ?>
 
